@@ -1,0 +1,117 @@
+.dashboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.custom-image-slider {
+  width: 40%;
+  max-width: 45vw;
+  margin-top: 13%;
+  overflow: hidden;
+  position: relative;
+  border-radius: 15px; /* Added border radius */
+}
+
+.custom-slides {
+  display: flex;
+  flex-direction: row; /* Changed from column to row for horizontal sliding */
+  animation: custom-slide 10s infinite linear;
+}
+
+.custom-slide-image {
+  width: 100%;
+  height: auto;
+  margin-right: 10px;
+  display: block;
+  border-radius: 15px; 
+  /* Match border radius of container */
+}
+
+@keyframes custom-slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); } /* Slide from left to right */
+}
+
+.custom-content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 55%;
+  padding: 0 20px;
+  margin-top: 4%;
+}
+
+.custom-heading {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: bold; /* Make "Voter Services" bold */
+}
+
+.custom-heading:hover {
+  text-decoration: underline;
+  cursor: default; /* Add underline on hover */
+}
+
+.custom-service-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px; /* Increased gap for more space between buttons */
+}
+
+.custom-service-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+  transition: background-color 0.3s, transform 0.3s;
+  width: 100%; /* Ensure all buttons are the same size */
+  height: 150px; /* Adjust height for uniform button size */
+}
+
+.custom-button-logo {
+  width: 50px; /* Adjusted logo size */
+  height: 50px; /* Adjusted logo size */
+  margin-bottom: 10px;
+}
+
+.custom-service-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .custom-image-slider {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+
+  }
+
+  .custom-content-container {
+    width: 100%;
+  }
+
+  .custom-service-container {
+    grid-template-columns: 1fr;
+  }
+
+  .custom-service-button {
+    width: 100%;
+  }
+}

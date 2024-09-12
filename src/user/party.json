@@ -1,0 +1,22 @@
+[
+    {
+   "partyName": "party A",
+   "partyCandidate":"ABC",
+   "partySymbol":"./user.jpg"
+},
+{
+    "partyName": "party B",
+    "partyCandidate":"ABC",
+    "partySymbol":"./user.jpg"
+ },
+ {
+    "partyName": "party C",
+    "partyCandidate":"ABC",
+    "partySymbol":"./user.jpg"
+ },
+ {
+    "partyName": "party D",
+    "partyCandidate":"ABC",
+    "partySymbol":"./user.jpg"
+ }
+]

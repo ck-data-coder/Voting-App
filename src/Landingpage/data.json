@@ -1,0 +1,142 @@
+[
+  {
+    "state": "Andhra Pradesh",
+    "loksabha": 25,
+    "vidhansabha": 175
+  },
+  {
+    "state": "Arunachal Pradesh",
+    "loksabha": 2,
+    "vidhansabha": 60
+  },
+  {
+    "state": "Assam",
+    "loksabha": 14,
+    "vidhansabha": 126
+  },
+  {
+    "state": "Bihar",
+    "loksabha": 40,
+    "vidhansabha": 243
+  },
+  {
+    "state": "Chhattisgarh",
+    "loksabha": 11,
+    "vidhansabha": 90
+  },
+  {
+    "state": "Goa",
+    "loksabha": 2,
+    "vidhansabha": 40
+  },
+  {
+    "state": "Gujarat",
+    "loksabha": 26,
+    "vidhansabha": 182
+  },
+  {
+    "state": "Haryana",
+    "loksabha": 10,
+    "vidhansabha": 90
+  },
+  {
+    "state": "Himachal Pradesh",
+    "loksabha": 4,
+    "vidhansabha": 68
+  },
+  {
+    "state": "Jharkhand",
+    "loksabha": 14,
+    "vidhansabha": 81
+  },
+  {
+    "state": "Karnataka",
+    "loksabha": 28,
+    "vidhansabha": 224
+  },
+  {
+    "state": "Kerala",
+    "loksabha": 20,
+    "vidhansabha": 140
+  },
+  {
+    "state": "Madhya Pradesh",
+    "loksabha": 29,
+    "vidhansabha": 230
+  },
+  {
+    "state": "Maharashtra",
+    "loksabha": 48,
+    "vidhansabha": 288
+  },
+  {
+    "state": "Manipur",
+    "loksabha": 2,
+    "vidhansabha": 60
+  },
+  {
+    "state": "Meghalaya",
+    "loksabha": 2,
+    "vidhansabha": 60
+  },
+  {
+    "state": "Mizoram",
+    "loksabha": 1,
+    "vidhansabha": 40
+  },
+  {
+    "state": "Nagaland",
+    "loksabha": 1,
+    "vidhansabha": 60
+  },
+  {
+    "state": "Odisha",
+    "loksabha": 21,
+    "vidhansabha": 147
+  },
+  {
+    "state": "Punjab",
+    "loksabha": 13,
+    "vidhansabha": 117
+  },
+  {
+    "state": "Rajasthan",
+    "loksabha": 25,
+    "vidhansabha": 200
+  },
+  {
+    "state": "Sikkim",
+    "loksabha": 1,
+    "vidhansabha": 32
+  },
+  {
+    "state": "Tamil Nadu",
+    "loksabha": 39,
+    "vidhansabha": 234
+  },
+  {
+    "state": "Telangana",
+    "loksabha": 17,
+    "vidhansabha": 119
+  },
+  {
+    "state": "Tripura",
+    "loksabha": 2,
+    "vidhansabha": 60
+  },
+  {
+    "state": "Uttar Pradesh",
+    "loksabha": 80,
+    "vidhansabha": 403
+  },
+  {
+    "state": "Uttarakhand",
+    "loksabha": 5,
+    "vidhansabha": 70
+  },
+  {
+    "state": "West Bengal",
+    "loksabha": 42,
+    "vidhansabha": 294
+  }
+]

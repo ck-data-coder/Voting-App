@@ -1,0 +1,36 @@
+.otp-generate{
+    width: 40%;
+}
+
+
+.form-label{
+    text-align: left;
+    margin-left: 2%;
+}
+
+.otp-success{
+    color: rgb(134, 212, 16);
+    position: relative;
+    top: -21px;
+    left: 11px;
+}
+
+.resend-otp{
+    position: absolute;
+    top: 77%;
+    left: 28%;
+    cursor: pointer;
+    border: none;
+    /* background-color: white; */
+}
+.timer{
+    position: absolute;
+    top: 80%;
+    left: 29%;
+}
+
+
+input[type='text']{
+    width: 100%;
+    border-radius: 29px;
+} 

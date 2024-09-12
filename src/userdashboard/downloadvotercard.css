@@ -1,0 +1,65 @@
+.download-container {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row; /* Stack items vertically */
+    align-items: start; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    height: 100vh; /* Full height to center content vertically */
+    width: 50vw;
+}
+
+.download-label {
+    font-weight: bold; /* Make label bold */
+    margin-top: 15px;
+    width: 50%; /* Space between label and input */
+}
+
+.download-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    width: 300px; /* Medium width */
+    margin-bottom: 20px; /* Space between input and button */
+    display: block; /* Block display */
+}
+
+.download-input:hover, .download-input:focus {
+    border-color: #003366; /* Change border color on hover/focus */
+}
+
+.download-input::placeholder {
+    color: #999;
+    font-weight: normal;
+}
+
+.download-input:focus {
+    font-weight: bold; /* Make entered text bold */
+}
+
+.download-verify-button {
+    padding: 10px 20px;
+    background-color: #003366;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 170px; 
+    margin-left: 10px;
+}
+
+.download-verify-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.download-verify-button:hover:not(:disabled) {
+    background-color: #0055a5;
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+.download-verify-button:active:not(:disabled) {
+    transform: scale(0.95); /* Slightly shrink the button on click */
+}
