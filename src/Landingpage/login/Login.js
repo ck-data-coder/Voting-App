@@ -63,7 +63,7 @@ const Login = () => {
   return (
     <>
       <Link to={'/'}><img className='backBtn' src={require('./back.png')} alt="Back" /></Link>
-      <div className='container login-header'>
+      <div className=' login-header'>
         <img className='login-logo' src={require('./logo.jpg')} alt="Logo" />
         <h1>Login Panel</h1>
       </div>

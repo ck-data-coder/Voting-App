@@ -17,10 +17,10 @@ header {
 }
 
 header .landing-logo {
-    font-size: 1.5rem;
-    position: relative;
-    right: 34%;
- margin-bottom: 0px;
+     font-size: 1.5rem;
+    position: absolute;
+   left: 9vw;
+ margin-bottom: 0px; 
 }
 header img{
  
@@ -117,14 +117,18 @@ footer {
 }
 
 /* Responsive Styles */
-@media (max-width: 768px) {
-    .states {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    header nav ul {
-        flex-direction: column;
+@media (max-width: 315px) {
+    
+    header .landing-logo {
+        font-size: 1rem;
+       position: absolute;
+      left: 14vw;
+    margin-bottom: 0px; 
+   }
+    header nav ul li button {
+        width: 120%;
+        height: 35px;
+        border-radius: 10px
     }
 
     header nav ul li {
@@ -133,6 +137,41 @@ footer {
     }
 }
 
+@media (max-width: 500px) {
+    header .landing-logo {
+        font-size: 1rem;
+       position: absolute;
+      left: 12vw;
+    margin-bottom: 0px; 
+   }
+
+   header nav ul li button {
+    width: 130%;
+    height: 35px;
+    border-radius: 10px
+}
+   header img{
+ 
+    width: 7%;
+    height: 6vh;
+    border-radius: 45% 45%;
+}
+header nav ul li {
+   
+    padding: 14px;
+    
+}
+  
+}
+
+@media (max-width: 850px) {
+    header img{
+ 
+        width: 7%;
+        height: 7vh;
+        border-radius: 45% 45%;
+    }
+}
 .seats h2{    
     text-align: center;
 }

@@ -21,6 +21,10 @@ import Voterdata from './admin/Voterdata.js';
 import ForgetPassword from './Landingpage/login/ForgetPassword.js';
 import Displayresult from './admin/Displayresult.js';
 import Previouselection from './admin/Previouselection.js';
+import Aboutus from './Landingpage/static pages/Aboutus.js';
+import Contactus from './Landingpage/static pages/Contactus.js';
+import Privacypolicy from './Landingpage/static pages/Privacypolicy.js';
+import Terms from './Landingpage/static pages/Terms.js';
 
 const usercontext=createContext(null);
 const setusercontext=createContext(null);
@@ -55,6 +59,11 @@ function App() {
         <Route exact path='/forgetpassword' element = {<ForgetPassword></ForgetPassword>}></Route>
         <Route exact path='/displayresult' element = {<Displayresult></Displayresult>}></Route>
         <Route exact path='/previousresult' element = {<Previouselection></Previouselection>}></Route>
+
+        <Route exact path='/About Us' element = {<Aboutus></Aboutus>}></Route>
+        <Route exact path='/Contact Us' element = {<Contactus></Contactus>}></Route>
+        <Route exact path='/Privacy Policy' element = {<Privacypolicy></Privacypolicy>}></Route>
+        <Route exact path='/Terms of Service' element = {<Terms></Terms>}></Route>
       </Routes>
     </Router>
     </setSignupcontext.Provider>

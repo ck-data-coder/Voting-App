@@ -12,7 +12,9 @@ const PreviousElectionChart = () => {
     try {
       const response = await axios.get("http://localhost:8080/displayresult");
       const previousElecData = response.data.filter(e => e.date !== electionTime);
-
+       if(previousElecData.length>5){
+        previousElecData=previousElecData.slice(0,5);
+       }
       // Aggregate data per date
       const formattedData = previousElecData.map(item => {
         const partyData = { date: item.date };

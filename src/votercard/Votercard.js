@@ -5,6 +5,8 @@ import axios from "axios";
 import {toast} from 'react-toastify'
 import Userheader from "../userdashboard/Userheader.js";
 import indiaDistricts from "./districtdata.js";
+import Footer from "../Landingpage/Footer.js";
+import Spinner from "../Landingpage/Spinner.js";
 function Votercard() {
   const initialState = {
     state: null,
@@ -32,6 +34,7 @@ function Votercard() {
   const [votercardData, setvotercardData] = useState(initialState);
   const [districts, setdistricts] = useState([]);
   const [Assembly, setAssembly] = useState();
+  const [spinnerdisplay,setSpinnerDisplay]=useState(false)
 
   function handlechange(e) {
     if(e.target.name=='state'){
@@ -113,6 +116,7 @@ function Votercard() {
   function onSubmit(e) {
     e.preventDefault();
     setSubmitButtonDisable(true)
+    setSpinnerDisplay(true)
     console.log(votercardData);
     const formData = new FormData();
     formData.append("state", votercardData.state);
@@ -144,12 +148,14 @@ function Votercard() {
 
       try{
         toast.success(res.data.message)
+        setSpinnerDisplay(false)
         }catch{}
         
     }).catch((err)=>{
       try{
         setSubmitButtonDisable(false)
         toast.error(err.response.data.message)
+        setSpinnerDisplay(false)
       }
       catch{ }
     });
@@ -423,8 +429,10 @@ function Votercard() {
           <button type="Submit" disabled={submitButtonDisable} onClick={onSubmit} className="submit">
             Submit
           </button>
+         {spinnerdisplay? <Spinner></Spinner>:null}
         </div>
       </form>
+      <Footer></Footer>
     </>
   );
 }

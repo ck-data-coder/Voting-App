@@ -5,6 +5,7 @@ import { datacontext, setdatacontext } from "../App";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Userheader from "../userdashboard/Userheader";
+import Footer from "../Landingpage/Footer";
 
 function Admin() {
    const countdownDuration =12*60*60 * 1000; // 24 hours in milliseconds
@@ -68,6 +69,13 @@ function Admin() {
          e.preventDefault()
          localStorage.setItem("timecalToDisplayElectionButton", Date.now())
          startElectionClick()
+         axios.get("http://localhost:8080/votingstart").then(()=>{
+
+          toast.success("message send to voters")
+         })
+        .catch((err)=>{
+          toast.error(" error in message send to voters")
+        })
        }
        
        useEffect(()=>{
@@ -138,12 +146,19 @@ function Admin() {
       <>
      
             <Userheader />
-            <button className="voting-data" onClick={voterDataButtonClick}>Voting Data</button>
-            <button className="display-result" disabled={displayResult} onClick={displayResultButtonClick}>Display result</button>
-            <button disabled={electionButtonDisplay} className="start-election" onClick={electionButtonClick}>Start Election</button>
             <div className="time-display" style={{ display: hourdisplay ? "block" : "none" }}>
               <h5>Election ends in: {formatTime(remainingTime)}</h5>
             </div>
+            <div className="admin-buttons">
+            <button className="voting-data" onClick={voterDataButtonClick}>Voting Data</button>
+
+            <button className="display-result" disabled={displayResult} onClick={displayResultButtonClick}>Display result</button>
+
+            <button disabled={electionButtonDisplay} className="start-election" onClick={electionButtonClick}>Start Election</button>
+            </div>
+           <div className="admin-footer">
+           <Footer></Footer>
+           </div>
           </>
     
     

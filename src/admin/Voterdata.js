@@ -6,6 +6,7 @@ import "./voterdata.css"
 import { datacontext, setdatacontext } from "../App";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Footer from '../Landingpage/Footer';
 const Voterdata = () => {
     const data = useContext(datacontext);
     const setdata = useContext(setdatacontext);
@@ -118,6 +119,7 @@ const Voterdata = () => {
 
          </div>
       </div>
+      <Footer></Footer>
     </>
   )
 }

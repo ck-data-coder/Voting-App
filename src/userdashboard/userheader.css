@@ -62,6 +62,8 @@
     color: #f2f2f2;
 }
 
+
+
 .eci-user-profile {
     margin-left: auto;
     position: relative;
@@ -208,4 +210,45 @@
 
 .logout-button:hover .arrow {
     transform: translateX(5px);
+}
+@media (max-width:700px) {
+    .eci-user-icon{
+        height: 26px;
+       
+        width: 20px;
+    }
+    .eci-logo img {
+        margin-right: 15px;
+       
+    }
+    .eci-logo img {
+        height: 6vh;
+    } 
+    .eci-title h1 {
+        font-size: 18px;
+        color: #f2f2f2;
+    }
+    
+    .eci-title h2 {
+        font-size: 14px;
+        color: #f2f2f2;
+    }
+}
+@media (max-width:400px) {
+    .eci-logo img {
+        margin-right: 10px;
+       
+    }
+    .eci-logo img {
+        height: 5vh;
+    } 
+    .eci-title h1 {
+        font-size: 15px;
+        color: #f2f2f2;
+    }
+    
+    .eci-title h2 {
+        font-size: 10px;
+        color: #f2f2f2;
+    }
 }

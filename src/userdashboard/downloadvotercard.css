@@ -1,11 +1,11 @@
 .download-container {
     margin-top: 40px;
-    display: flex;
-    flex-direction: row; /* Stack items vertically */
-    align-items: start; /* Center items horizontally */
-    justify-content: center; /* Center items vertically */
-    height: 100vh; /* Full height to center content vertically */
-    width: 50vw;
+    /* display: flex; */
+    /* flex-direction: row;  */
+    align-items: start;
+    justify-content: center; 
+    height: 33vh; /* Full height to center content vertically */
+    width: 87vw;
 }
 
 .download-label {
@@ -14,13 +14,13 @@
     width: 50%; /* Space between label and input */
 }
 
-.download-input {
+#download-input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
     transition: border-color 0.3s ease;
-    width: 300px; /* Medium width */
+    width: 65%; /* Medium width */
     margin-bottom: 20px; /* Space between input and button */
     display: block; /* Block display */
 }
@@ -46,7 +46,7 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    width: 170px; 
+    /* width: 170px;  */
     margin-left: 10px;
 }
 
@@ -62,4 +62,21 @@
 
 .download-verify-button:active:not(:disabled) {
     transform: scale(0.95); /* Slightly shrink the button on click */
+}
+
+@media (min-width:1300){
+/* .download-input{
+    display: block;
+}
+ .download-label{
+    display: block;
+}
+.download-verify-button{
+    display: block;
+} */
+.download-container{
+    
+    flex-direction: column;
+    
+ } 
 }

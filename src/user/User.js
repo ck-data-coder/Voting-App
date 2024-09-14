@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Userheader from "../userdashboard/Userheader";
 import './user.css'
+import Footer from "../Landingpage/Footer";
 
 const parties = [
   { logo: "./logo-photos/logo-bjp.png", name: "Bhartiy Janta Party", memberName: "Narendra Modi" },
@@ -126,6 +127,9 @@ axios.post("http://localhost:8080/uservote",data,{
             <button className="vote-button" onClick={()=>voteClick(party.name)}>Vote</button>
           </div>
         ))}
+      </div>
+      <div className="voteforparty-footer">
+      <Footer></Footer>
       </div>
     </>
   );

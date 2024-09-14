@@ -1,0 +1,102 @@
+.footer {
+    background-color: #e4e9ee; /* Dark background */
+    color: rgba(0, 0, 0, 0); /* White text */
+    padding: 20px 0; /* Padding top and bottom */
+    position: relative;
+    bottom: 0;
+    width: 100%;
+   margin-top: 30px;
+}
+
+.footer-content {
+    display: flex; /* Flexbox for layout */
+    justify-content: space-between; /* Space between sections */
+    align-items: flex-start; /* Align items at the start */
+    max-width: 1200px; /* Max width for layout */
+    margin: 0 auto; /* Center content */
+    flex-wrap: wrap; /* Wrap on smaller screens */
+}
+
+.footer-section {
+    flex: 1; /* Equal width for sections */
+    padding: 10px 20px; /* Padding for each section */
+    min-width: 200px; /* Minimum width to maintain layout */
+}
+
+.footer-logo {
+    font-size: 1.5rem; /* Logo font size */
+    margin-bottom: 10px; /* Space below the logo */
+    color: black;
+}
+
+.footer-section h3 {
+    margin-bottom: 15px; /* Space below section headers */
+    font-size: 1.2rem; /* Section header font size */
+    color:black; /* Lighter color for headers */
+}
+
+.footer-section p {
+    line-height: 1.5; /* Line height for readability */
+    color: black; /* Light grey for paragraph text */
+}
+
+.footer-section.links ul {
+    list-style: none; /* Remove list bullets */
+    padding: 0; /* Remove padding */
+}
+
+.footer-section.links ul li {
+    margin-bottom: 10px; /* Space between links */
+    text-decoration: none;
+    
+}
+
+.footer-section.links ul li a {
+    color:black; /* Light text color for links */
+    text-decoration: none; /* Remove underline from links */
+    transition: color 0.3s; /* Smooth color transition */
+}
+
+.footer-section.links ul li a:hover {
+    color: #4c4d4f; /* Change link color on hover */
+}
+
+.footer-section.social {
+    text-align: left; /* Align social icons */
+}
+
+.footer-section.social .social-icons a {
+    color:black; /* Light color for social icons */
+    font-size: 1.5rem; /* Size of social icons */
+    margin-right: 15px; /* Space between icons */
+    transition: color 0.3s; /* Smooth color transition */
+}
+
+.footer-section.social .social-icons a:hover {
+    color: #3498db; /* Change icon color on hover */
+}
+
+.footer-bottom {
+    text-align: center; /* Center the text */
+    margin-top: 20px; /* Space above bottom section */
+    font-size: 0.9rem; /* Smaller font size */
+    color:black; /* Light grey text */
+}
+
+.social-icon{
+    width: 54px;
+    height: 54px;
+    margin: 5px
+}
+
+/* Responsive design adjustments */
+/* @media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column; 
+        text-align: center; 
+    }
+
+    .footer-section {
+        padding: 10px 0; 
+    }
+} */

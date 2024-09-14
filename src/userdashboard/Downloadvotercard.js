@@ -4,21 +4,29 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import Userheader from './Userheader';
+import Footer from '../Landingpage/Footer';
+import Spinner from '../Landingpage/Spinner';
 
 const Downloadvotercard = () => {
     const [epic, setEpic] = useState({ epic_no: '' });
     const [verifydisable, setVerifyDisable] = useState(true);
     const [inputdisable, setInputdisable] = useState(false);
     const navigate = useNavigate();
+    const [spinnerdisplay,setSpinnerDisplay]=useState(false)
 
     function epicChange(e) {
         setEpic({ ...epic, [e.target.name]: e.target.value });
     }
 
+  
     function veryfyClick(e) {
         e.preventDefault();
+        setInputdisable(true);
+        setVerifyDisable(true)
+        setSpinnerDisplay(true)
         console.log(epic);
         const token = localStorage.getItem('token');
+       
         axios.post("http://localhost:8080/downloadvotercard", epic, {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -26,18 +34,20 @@ const Downloadvotercard = () => {
             responseType: 'blob',
         }).then((res) => {
             toast.success("Voter card downloaded successfully");
-
+            setSpinnerDisplay(false)
             const url = window.URL.createObjectURL(new Blob([res.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'votercard.pdf');
+            link.setAttribute('download', 'voterfile.pdf');
             document.body.appendChild(link);
             link.click();
             link.remove();
-            setInputdisable(true);
-            setVerifyDisable(true)
+           
         }).catch((err) => {
             try {
+                setSpinnerDisplay(false)
+                setInputdisable(false);
+                setVerifyDisable(false)
                 console.log(err);
                 if (err.response.status === 403) {
                     toast.error("Session expired, please login again");
@@ -72,14 +82,16 @@ const Downloadvotercard = () => {
                     value={epic.epic_no}
                     placeholder="Enter your epic number"
                     onChange={epicChange}
-                    className="download-input"
+                    id="download-input"
                     disabled={inputdisable}
                 />
                 <button className="download-verify-button" disabled={verifydisable} onClick={veryfyClick}>
                     Verify
                 </button>
+              {spinnerdisplay?  <Spinner></Spinner>:null}
             </div>
             </center>
+            <Footer></Footer>
         </>
     );
 }

@@ -5,6 +5,7 @@ import Dashboard from '../userdashboard/Dashboard'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Admin from '../admin/Admin'
+import Footer from './Footer'
 function Landingpage() {
     const navigate=useNavigate()
     const [useroradmin,setuseroradmin]=useState()
@@ -75,9 +76,7 @@ function Landingpage() {
             </section>
 
             
-            <footer>
-                <p>&copy; 2024 Voting Application. All rights reserved.</p>
-            </footer>
+           <Footer></Footer>
             </>
       
         

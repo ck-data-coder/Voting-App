@@ -3,6 +3,7 @@ import './dashboard.css'
 import Userheader from './Userheader';
 import { useEffect,useState } from 'react';
 import { toast } from 'react-toastify';
+import Footer from '../Landingpage/Footer';
 
 
 const Dashboard = () => {
@@ -158,6 +159,7 @@ let targetTime=localStorage.getItem("targetTime")
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 }

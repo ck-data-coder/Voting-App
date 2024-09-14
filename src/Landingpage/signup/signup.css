@@ -16,17 +16,17 @@
 }
 
 .resend-otp{
-    position: absolute;
-    top: 77%;
-    left: 28%;
+    position: relative;
+    top: -8vh;
+    left: 200px;
     cursor: pointer;
     border: none;
-    /* background-color: white; */
+    background-color: white;
 }
 .timer{
-    position: absolute;
-    top: 80%;
-    left: 29%;
+    position: relative;
+    top: -7vh;
+    left: 200px;
 }
 
 
@@ -34,3 +34,75 @@ input[type='text']{
     width: 100%;
     border-radius: 29px;
 } 
+
+div.get-otp{
+   width: 30%;
+   margin-left: 16px;
+}
+
+.signup-spinner{
+    display: inline-block;
+    margin-bottom: 13px;
+    margin-top: -3px;
+    position: relative;
+    top: -54px;
+
+
+}
+
+.signup-spinner-adjust{
+    margin-top: -50px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+@media (max-width:1100px) {
+    .resend-otp{
+        
+        left: 22vw;
+        
+    }
+    .timer{
+       
+        left: 22vw;
+    }
+}
+
+@media (max-width:700px) {
+    .resend-otp{
+        position: relative;
+        top: -8vh;
+        left: 210px;
+        cursor: pointer;
+        border: none;
+        background-color: white;
+    }
+    .timer{
+        position: relative;
+        top: -7vh;
+        left: 210px;
+    }
+}
+@media (max-width:400px) {
+    .resend-otp{
+        
+        left: 160px;
+        
+    }
+    .timer{
+       
+        left: 160px;
+    }
+}
+
+

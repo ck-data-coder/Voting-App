@@ -5,6 +5,8 @@ import axios from "axios";
 import {toast} from 'react-toastify'
 import Userheader from "../userdashboard/Userheader.js";
 import indiaDistricts from "../votercard/districtdata.js";
+import Footer from "../Landingpage/Footer.js";
+import Spinner from "../Landingpage/Spinner.js";
 function Updatevotercard() {
   const initialState = {
     epic_no:null,
@@ -34,6 +36,7 @@ function Updatevotercard() {
   const [votercardData, setvotercardData] = useState(initialState);
   const [districts, setdistricts] = useState([]);
   const [Assembly, setAssembly] = useState();
+  const [spinnerdisplay,setSpinnerDisplay]=useState(false)
 
   function handlechange(e) {
     if(e.target.name=='state'){
@@ -113,6 +116,7 @@ function Updatevotercard() {
   function onSubmit(e) {
     e.preventDefault();
     setSubmitButtonDisable(true)
+    setSpinnerDisplay(true)
     console.log(votercardData);
     const formData = new FormData();
     formData.append("epic_no", votercardData.epic_no);
@@ -145,12 +149,14 @@ function Updatevotercard() {
 
       try{
         toast.success(res.data.message)
+        setSpinnerDisplay(false)
         }catch{}
         
     }).catch((err)=>{
       try{
         toast.error(err.response.data.message)
         setSubmitButtonDisable(false)
+        setSpinnerDisplay(false)
       }
       catch{ }
     });
@@ -212,7 +218,7 @@ function Updatevotercard() {
             B. Select State, District & Assembly/Parliamentary Constituency
           </h2>
           <label htmlFor="state">Select Your State:</label>
-          <label for="state">Select Your State:</label>
+       
           <select
             onChange={handlechange}
             selected={null}
@@ -483,11 +489,14 @@ function Updatevotercard() {
             
             />
           </div>
-          <button  disabled={submitButtonDisable} type="Submit" onClick={onSubmit}>
+          <button className="submit"  disabled={submitButtonDisable} type="Submit" onClick={onSubmit}>
             Submit
           </button>
+         {spinnerdisplay? <Spinner></Spinner>:null}
         </div>
       </form>
+
+      <Footer></Footer>
     </>
   )
 }

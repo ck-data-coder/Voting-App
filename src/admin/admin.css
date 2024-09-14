@@ -1,5 +1,5 @@
 /* admin.css */
-
+/* 
 .start-election{
     position: absolute;
     top: 50%;
@@ -8,9 +8,9 @@
     color: white;
     width: 10%;
     height: 8vh;
-}
+} */
 
-.voting-data{
+/* .voting-data{
      position: absolute;
      top: 40%;
      left: 50%;
@@ -18,16 +18,130 @@
      color: white;
      width: 10%;
      height: 8vh;
-}
-.display-result{
-    position: absolute;
+} */
+
+.admin-buttons{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: auto;
+    justify-content: center;
+    /* flex-direction: column; */
+    margin-top: 107px;
+    column-gap: 20px;
+ }
+.display-result {
+    /* Base styling */
+    /* position: absolute;
     top: 30%;
-    left: 50%;
-    background-color: blue;
-    color: white;
-    width: 10%;
-    height: 8vh;
+    left: 50%; */
+    padding: 10px 20px;           
+    background-color: #007bff;    
+    color: #ffffff;               
+    border: none;                
+    border-radius: 5px;          
+    font-size: 16px;        
+    cursor: pointer;           
+    transition: background-color 0.3s ease, transform 0.2s ease; 
 }
+
+.display-result:hover {
+    /* Hover state styling */
+    background-color: #0056b3;    
+    transform: scale(1.05);        
+}
+
+.display-result:disabled {
+    /* Disabled state styling */
+    background-color: #c0c0c0;     
+    color: #6c757d;                
+    cursor: not-allowed;          
+    opacity: 0.65;              
+    transform: none;            
+}
+
+.display-result:disabled:hover {
+   
+    background-color: #c0c0c0;
+    transform: none;
+}
+
+
+.voting-data {
+    /* Base styling */
+    /* position: absolute;
+    top: 40%;
+     left: 50%; */
+    padding: 10px 27px;           
+    background-color: #007bff;    
+    color: #ffffff;               
+    border: none;                
+    border-radius: 5px;          
+    font-size: 16px;        
+    cursor: pointer;           
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+}
+
+.voting-data:hover {
+    /* Hover state styling */
+    background-color: #0056b3;    
+    transform: scale(1.05);        
+}
+
+.voting-data:disabled {
+    /* Disabled state styling */
+    background-color: #c0c0c0;     
+    color: #6c757d;                
+    cursor: not-allowed;          
+    opacity: 0.65;              
+    transform: none;            
+}
+
+.voting-data:disabled:hover {
+   
+    background-color: #c0c0c0;
+    transform: none;
+}
+
+
+
+
+.start-election {
+    /* Base styling */
+    /* position: absolute;
+    top: 50%;
+     left: 50%; */
+    padding: 10px 22px;           
+    background-color: #007bff;    
+    color: #ffffff;               
+    border: none;                
+    border-radius: 5px;          
+    font-size: 16px;        
+    cursor: pointer;           
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+}
+
+.start-election:hover {
+    /* Hover state styling */
+    background-color: #0056b3;    
+    transform: scale(1.05);        
+}
+
+.start-election:disabled {
+    /* Disabled state styling */
+    background-color: #c0c0c0;     
+    color: #6c757d;                
+    cursor: not-allowed;          
+    opacity: 0.65;              
+    transform: none;            
+}
+
+.start-election:disabled:hover {
+   
+    background-color: #c0c0c0;
+    transform: none;
+}
+
 .time-display{
     display: block;
     color: red;
@@ -35,4 +149,7 @@
     position: absolute;
     right: 5%;
 }
-
+ 
+.admin-footer{
+    margin-top: 154px;
+}

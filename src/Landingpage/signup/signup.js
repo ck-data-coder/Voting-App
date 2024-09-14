@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import './signup.css'
 import {  toast } from 'react-toastify';
 import { setSignupcontext, Signupcontext } from '../../App';
+import Spinner from '../Spinner';
 
 const Signup = () => {
   const signupcon=useContext(Signupcontext)
@@ -29,6 +30,8 @@ const Signup = () => {
  const [resendOtp,setresendOtp]=useState(true)
  const [time,setTime]=useState(120)
  const [timer,setTimer]=useState(true)
+ const [spinnerdisplay,setSpinnerDisplay]=useState(false)
+
  function signupHandleChange(e){
 setSignupData({...signupData,[e.target.name]:e.target.value});
  setError('')
@@ -87,12 +90,14 @@ async function signupSumbit(e){
         }
   
 if(signup=="generate otp"){
+  setSpinnerDisplay(true)
   setsignupcon(signupData);
   setDisable(true)
   if(signup=="Register") setDisableinput(true)
   localStorage.setItem('signupdata',JSON.stringify(signupData))
  await axios.post("http://localhost:8080/signup",{signupData,signup:signup,time:Date.now()}).then((res)=>{
   try{
+    setSpinnerDisplay(false)
     toast.success(res.data.message)
     }catch{}
  setSignup('Register')
@@ -102,6 +107,7 @@ if(signup=="generate otp"){
     console.log(err)
     try{
       setDisable(false)
+      setSpinnerDisplay(false)
       toast.error(err.response.data.message)
     }
     catch{
@@ -113,32 +119,38 @@ return;
 
 
  if(signup=="Register"){
+  setSpinnerDisplay(true)
   if(otp.otpval.length==6){
     axios.post("http://localhost:8080/signup",{signupData,otp}).then(()=>{
       axios.post( "http://localhost:8080/signup",{signupData,data:"database"})
       .then(res=>{
        console.log(res.data);
+    
        toast.success("signup success, please login")
        navigate('/');
       })
       .catch(err=>{
         try{
+      
           toast.error(err.response.data.message)
           console.error(err.response.data.message);
         }
         catch{}
      
       })
-      
+      setSpinnerDisplay(false)
     }).catch((err)=>{
       try{
         toast.error(err.response.data.message)
+        setSpinnerDisplay(false)
         console.error(err.response.data.message);
       }
       catch{}
     })
   }
- else{toast.error("otp is incorrect")}
+ else{
+  setSpinnerDisplay(false)
+  toast.error("otp is incorrect")}
 }}
 }
 
@@ -146,11 +158,14 @@ return;
 const resendOtpFunc=useCallback(async(e)=>{
   e.preventDefault()
   setresendOtp(true)
+  setSpinnerDisplay(true)
   const item=JSON.parse(localStorage.getItem('signupdata'))
   
   const signupData=item;
   console.log(signupData)
-  await axios.post("http://localhost:8080/signup",{signupData,signup:signup}).then((res)=>{  setDisableinput(true)
+  await axios.post("http://localhost:8080/signup",{signupData,signup:signup}).then((res)=>{ 
+    setSpinnerDisplay(false)
+    setDisableinput(true)
     console.log(res)
     try{
     toast.success(res.data.message)
@@ -160,6 +175,7 @@ const resendOtpFunc=useCallback(async(e)=>{
     setTime(120)
      }).catch(err=>{
        console.log(err)
+       setSpinnerDisplay(false)
        try{
          toast.error(err.response.data.message)
        }
@@ -261,21 +277,24 @@ function otpvalidate(e){
 
                    <div style={{'display':otpdisplay}} className='get-otp'>
                  
-                  <div class="d-flex  flex-row align-items-center mb-4 otp-generate">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                  {/* <div class="d-flex  flex-row align-items-center mb-4 otp-generate">
+                   
+                  </div> */}
+                  <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div data-mdb-input-init class="form-outline flex-fill mb-0">
                       <input type="text" onChange={otpvalidate} name="otpval" placeholder='enter otp' id="validationDefault01" value={otp.otpval} class="form-control " />
                       <label class="form-label" for="validationDefault01"></label>
                     </div>
-                  </div>
                   <div><button disabled={resendOtp} onClick={resendOtpFunc} className='resend-otp'>Resend otp</button><br></br>
                   <p className='timer'>in  {min}:{sec<10?`0${sec}`:sec} min</p></div> 
                   </div>
-
-                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                  <div className='signup-spinner'>
+                   {spinnerdisplay?  <Spinner></Spinner>:null}
+                  </div>
+                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4 signup-spinner-adjust">
                    <button onClick={signupSumbit} disabled={disable} type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg">{signup}</button>
                  </div>
-
+                
                 </form>
 
               </div>

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '../Spinner';
 
 const ForgetPassword = () => {
        const [email,setEmail]=useState({email:null})
@@ -20,7 +21,9 @@ const ForgetPassword = () => {
    const [inputPasswordDisplay,setInputPasswordDisplay]=useState(false)
    const [generateOtpDisable,setGenerateOtpDisable]=useState(false)
    const [submitPasswordDisable,setSubmitPasswordDisable]=useState(true)
-  
+   const [generateotpSpinnerDisplay,setGenerateOtpSpinnerDisplay]=useState(false)
+  const [resendotpAndVerifySpinnerDisplay,setResendOtpAndVerifySpinnerDisplay]=useState(false)
+ 
       const passwordInitalState={
         password:'',
         repeatepassword:''
@@ -41,11 +44,13 @@ const ForgetPassword = () => {
           return
         }
         setGenerateOtpDisable(true)
+        setGenerateOtpSpinnerDisplay(true)
         axios.post("http://localhost:8080/forgetpasswordotp",{...email,time:Date.now()}).then((res)=>{
           try{
             localStorage.setItem("forgetpasswordemail",email.email)
             toast.success(res.data.message)
             setGenerateOtpDisplay(true)
+            setGenerateOtpSpinnerDisplay(false)
            setVerifyOtpDisplay(false)
            setEmailDisable(true)
            setOtpGenerated(true)
@@ -54,6 +59,7 @@ const ForgetPassword = () => {
         }).catch((err)=>{
           try{
             setGenerateOtpDisable(false)
+            setGenerateOtpSpinnerDisplay(false)
             toast.error(err.response.data.message)
            }catch{}
         })
@@ -61,17 +67,21 @@ const ForgetPassword = () => {
 
      async  function verifyOtpClick(e){
           e.preventDefault()
+          setResendOtpAndVerifySpinnerDisplay(true)
           await axios.post("http://localhost:8080/forgetpasswordverifyotp",email).then((res)=>{
             try{
               toast.success(res.data.message)
               }catch{}
             setVerifyOtpDisable(true)
+            setResendOtpAndVerifySpinnerDisplay(false)
             setVerifyButtonDisable(true)
             setResendOtpDisplay(false)
+            setVerifyOtpDisplay(true)
             setInputPasswordDisplay(true)
           })
           .catch((err)=>{
             try{
+              setResendOtpAndVerifySpinnerDisplay(false)
               toast.error(err.response.data.message)
              }catch{}
           })
@@ -82,7 +92,7 @@ const ForgetPassword = () => {
 
         e.preventDefault()
         setresendOtp(true)
-        
+        setResendOtpAndVerifySpinnerDisplay(true)
         const email=localStorage.getItem("forgetpasswordemail")
        
         await axios.post("http://localhost:8080/forgetpasswordotp",{email:email,time:Date.now()}).then((res)=>{  
@@ -93,11 +103,11 @@ const ForgetPassword = () => {
           }catch{}
           setresendOtp(true)
           setTimer(true)
-        
+          setResendOtpAndVerifySpinnerDisplay(false)
           setTime(120)
            }).catch(err=>{
              console.log(err)
-            
+             setResendOtpAndVerifySpinnerDisplay(false)
              try{
                toast.error(err.response.data.message)
              }
@@ -196,24 +206,27 @@ const ForgetPassword = () => {
   return (
     <>
   
-    <form className="form-center" >
+    <form className="password-form-center" >
       <div className="Forget-container">
     
-          <div className="form-group">
+          <div className="password-form-group">
             <label htmlFor="Email"><b>Enter Your Email :-</b></label>
             <input
               type="email"
               id="Email"
               name="email"
               disabled={emailDisable}
-              className="input-field"
+              className="forgetpassword-email-input-field"
               value={email.email}
               onChange={emailChange}
             />
-            <button disabled={generateOtpDisable}  style={{display:generateOtpDisplay?"none":"block"}} className="generate-otp-button" onClick={geneteateOtpClick}>Generate OTP</button>
+            <button disabled={generateOtpDisable}  style={{display:generateOtpDisplay?"none":"inline-block"}} className="forgetpassword-generate-otp-button" onClick={geneteateOtpClick}>Generate OTP</button>
+            {generateotpSpinnerDisplay?  <div className='forgetpassword-spinner'>
+           <Spinner></Spinner>
+            </div>:null}
           </div>
 
-        <div className='verify-otp' style={{display:verifyOtpDisplay?"none":"block"}}> 
+        <div className='forgetpassword-verify-otp' style={{display:verifyOtpDisplay?"none":"block"}}> 
           <label>Enter Your Otp</label>
         <input
                disabled={verifyOtpDisable}
@@ -223,23 +236,28 @@ const ForgetPassword = () => {
               placeholder='enter otp'
               value={email.otp}
               onChange={emailChange}
+              className='forgetpassword-otp-input-field'
             />
-            <button  className="verify-otp-button" disabled={verifyButtonDisable} onClick={verifyOtpClick}>verify</button>
-
-            <div style={{display:resendOtpDisplay?"block":"none"}}><button disabled={resendOtp} onClick={resendOtpFunc} id='resend-password-otp'>Resend otp</button><br></br>
-                  <p className='password-timer'>in  {min}:{sec<10?`0${sec}`:sec} min</p>
+          
+             
+            <div style={{display:resendOtpDisplay?"inline-block":"none"}}><button disabled={resendOtp} type='resend-otp' onClick={resendOtpFunc} id='forgetpassword-resend-password-otp'>Resend otp</button><br></br>
+                  <p className='forgetpassword-password-timer'>in  {min}:{sec<10?`0${sec}`:sec} min</p>
                   
             </div> 
+          {resendotpAndVerifySpinnerDisplay?  <div className="forgetpassword-verify-resendotp-spinner-display">
+            <Spinner></Spinner>
+            </div>: null}
+            <button  className="forgetpassword-verify-otp-button" disabled={verifyButtonDisable} onClick={verifyOtpClick}>verify</button>
             </div>
-  
+           
 
-             <div className='set-password' style={{display:inputPasswordDisplay?"block":"none"}}>
+             <div className='forgetpassword-set-password' style={{display:inputPasswordDisplay?"block":"none"}}>
              <input
               type="password"
               id="password"
               name="password"
               placeholder='enter new password'
-              className="input-field"
+              className="newpassword-input-field"
               value={checkPassword.password}
               onChange={passwordChange}
             />
@@ -247,13 +265,13 @@ const ForgetPassword = () => {
               type="password"
               id="repeatepassword"
               name="repeatepassword"
-              className="input-field"
+              className="newpassword-input-field"
                placeholder='re-enter new password'
               value={checkPassword.repeatepassword}
               onChange={passwordChange}
             />
             
-            <button className="submit-password" disabled={submitPasswordDisable} onClick={submitPasswordClick}>Submit</button>
+            <button className="forgetpassword-submit-password" disabled={submitPasswordDisable} onClick={submitPasswordClick}>Submit</button>
              </div>
       
        

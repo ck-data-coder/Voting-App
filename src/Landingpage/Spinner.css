@@ -1,8 +1,8 @@
 /* Spinner.css */
 .spinner-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: inline-block;
+    margin-left: 19px;
+    height: 28px;
      /* Full page height */
   }
   

@@ -4,6 +4,8 @@ import Currentelectionbarplot from './Currentelectionbarplot';
 import Previouselctionchart from './Previouselctionchart';
 import Previouselectiondata from './Previouselectiondata';
 import './displayresult.css'; // Import CSS for styling
+import Footer from '../Landingpage/Footer';
+import Userheader from '../userdashboard/Userheader';
 
 const Displayresult = () => {
   const electionTime = new Date(+localStorage.getItem("timecalToDisplayElectionButton")).toISOString().slice(0, 10);
@@ -20,6 +22,8 @@ const Displayresult = () => {
 
   let currentElectionVotedOrNot=1;
   return (
+    <>
+    <Userheader></Userheader>
     <div className="display-result-container">
       {data ? data.map((e) => {
         if (e.date === electionTime) {
@@ -66,13 +70,15 @@ const Displayresult = () => {
           <div className="graph-wrapper">
             <Previouselectiondata />
           </div>
-          <h3 className="graph-heading">Previous Election Chart</h3>
+          <h1 className="graph-heading previous-election-chart-h1">Previous 5 Election Chart</h1>
           <div className="graph-wrapper">
             <Previouselctionchart />
           </div>
         </div>
       </div>
     </div>
+    <Footer></Footer>
+    </>
   );
 }
 
