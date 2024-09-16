@@ -11,7 +11,7 @@ function Landingpage() {
     const [useroradmin,setuseroradmin]=useState()
     const token=localStorage.getItem('token')
   useEffect(()=>{
-   axios.get("http://localhost:8080/landingpage",{
+   axios.get("/api/landingpage",{
     headers: {
       'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
      

@@ -44,7 +44,7 @@ const Login = () => {
     const userType = loginData.userAdmin;
     const endpoint = userType === 'user' ? '/dashboard' : '/admin';
 
-    axios.post("http://localhost:8080/login", { loginData, user: userType })
+    axios.post("/api/login", { loginData, user: userType })
       .then((res) => {
         localStorage.setItem('token', res.data.token);
         setUserContext(loginData);

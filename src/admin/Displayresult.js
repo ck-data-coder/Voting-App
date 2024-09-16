@@ -6,13 +6,39 @@ import Previouselectiondata from './Previouselectiondata';
 import './displayresult.css'; // Import CSS for styling
 import Footer from '../Landingpage/Footer';
 import Userheader from '../userdashboard/Userheader';
+import { useNavigate } from 'react-router-dom';
 
 const Displayresult = () => {
-  const electionTime = new Date(+localStorage.getItem("timecalToDisplayElectionButton")).toISOString().slice(0, 10);
+  const token=localStorage.getItem("token")
+  const navigate=useNavigate()
+  async function getresult(){
+    await axios.get('/api/getresult').then((res)=>{
+       if(res.data=="result pending"){
+        navigate('/')
+        return;
+       }
+    }).catch(()=>{})
+   }
+
+  async function gettimecalToDisplayElectionButton(){
+    await axios.get('/api/gettimecalToDisplayElectionButton').then((res)=>{
+     localStorage.setItem("timecalToDisplayElectionButton",res.data)
+    }).catch(()=>{})
+   }
+   
+    const timecalToDisplayElectionButton=localStorage.getItem("timecalToDisplayElectionButton")
+     const electionTime=new Date(+timecalToDisplayElectionButton).toISOString().slice(0, 10)
   const [data, setdata] = useState();
 
   useEffect(() => {
-    axios.get("http://localhost:8080/displayresult")
+    getresult();
+    gettimecalToDisplayElectionButton();
+    axios.get("/api/displayresult", {
+      headers: {
+        'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
+        'Content-Type': 'application/json'
+      }
+    })
       .then((res) => {
         console.log(JSON.stringify(res.data));
         setdata(res.data);

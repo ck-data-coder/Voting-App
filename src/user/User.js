@@ -33,7 +33,7 @@ const User = () => {
   }
 
   function veryfyClick(e) {
-  axios.post("http://localhost:8080/userepicverify",epic,{
+  axios.post("/api/userepicverify",epic,{
     headers: {
       'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
      
@@ -72,7 +72,7 @@ const data={
   time:time
 }
 
-axios.post("http://localhost:8080/uservote",data,{
+axios.post("/api/uservote",data,{
   headers: {
     'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
    

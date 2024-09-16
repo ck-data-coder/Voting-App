@@ -4,39 +4,48 @@ import Userheader from './Userheader';
 import { useEffect,useState } from 'react';
 import { toast } from 'react-toastify';
 import Footer from '../Landingpage/Footer';
-
+import axios from 'axios';
 
 const Dashboard = () => {
   const navigate=useNavigate()
-const [remaingTime,setRemainingTime]=useState()
+const [remaingTime,setRemainingTime]=useState(12*60*60 * 1000)
 const [displayTime,setDisplayTime]=useState(false)
-let remainingTime = localStorage.getItem('remaingtime');
-let targetTime=localStorage.getItem("targetTime")
-  useEffect(()=>{
+// let remainingTime = localStorage.getItem('remaingtime');
+
+
+
+async function startelectionornot() {
+await axios.get('/api/gettargettime').then((res)=>{
+ let targetTime=res.data;
+  localStorage.setItem("targetTime",res.data)
+    
+  const interval = setInterval(() => {
+    const now = new Date().getTime();
+    const timeLeft = targetTime - now;
+    localStorage.setItem("remaingtime",timeLeft)
  
-     
-     
-      // Function to update the remaining time every second
-      if(targetTime){
-        setDisplayTime(true)
-      const interval = setInterval(() => {
-        const now = new Date().getTime();
-        const timeLeft = targetTime - now;
-        localStorage.setItem("remaingtime",timeLeft)
-     
-        // Update state with the remaining time
-        setRemainingTime(timeLeft);
-  
-        // If the countdown is over, stop the interval and clear local storage
-        if (timeLeft <= 0) {
-          localStorage.removeItem('targetTime');
-          clearInterval(interval);
-          localStorage.setItem('election',"election ended")
-          setRemainingTime(0);
-        }
-      }, 1000);
+    // Update state with the remaining time
+    setRemainingTime(timeLeft);
+
+    // If the countdown is over, stop the interval and clear local storage
+    if (timeLeft <= 0) {
+      localStorage.removeItem('targetTime');
+      axios.delete('/api/removetargettime',{id:1}).then(()=>{}).catch((err)=>{console.log(err)})
+      axios.post('/api/setelection',{election:"election ended"}).then(()=>{}).catch((err)=>{console.log(err)})
+      clearInterval(interval);
+      localStorage.setItem('election',"election ended")
+      setRemainingTime(0);
     }
-     else setDisplayTime(false)
+  }, 1000);
+  setDisplayTime(true)
+ }).catch((err)=>{console.log(err); setDisplayTime(false)})
+}
+ 
+
+useEffect(()=>{
+   
+  startelectionornot()
+      
   },[])
 
 
@@ -69,39 +78,48 @@ let targetTime=localStorage.getItem("targetTime")
     return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
   };
 
-  function votingClick(){
+ async function votingClick(){
+  const targetTime=localStorage.getItem("targetTime");
     if(targetTime){
       navigate('/voteparty')
       return;
     }
-    const electionButtonDisplayTime= localStorage.getItem("timecalToDisplayElectionButton")
-    const time=Date.now()
-    const electionStartTime= +electionButtonDisplayTime +(2*12*60*60*1000);
-
- if(time>electionStartTime){
-  toast.error("election not started yet")
-  return
- }
- else if(time<electionStartTime){
-  toast.error("election ended")
-  return
- }
+    await axios.get('/api/gettimecalToDisplayElectionButton').then((res)=>{
+      const electionButtonDisplayTime=res.data;
+      const time=Date.now()
+      const electionStartTime= +electionButtonDisplayTime +(2*12*60*60*1000);
+  
+   if(time>electionStartTime){
+    toast.error("election not started yet")
+    return
+   }
+   else if(time<electionStartTime){
+    toast.error("election ended")
+    return
+   }
+    }).catch(()=>{})
+ 
   }
 
-  function displayButtonClick(){
-    const result=localStorage.getItem('result')
+  async function displayButtonClick(){
+    const targetTime=localStorage.getItem("targetTime")
     if(targetTime){
-       toast.error("voting is not ended yet")
-      return
-      }
-     else if(result=="result pending"){
-        toast.error("result is not release yet")
-        return
-      }
-     else if(result=="result displayed"){
-      navigate('/displayresult')
+      toast.error("voting is not ended yet")
+     return
      }
+
+   await axios.get('/api/getresult').then((res)=>{
+    const result=res.data;
+    if(result=="result pending"){
+      toast.error("result is not release yet")
+      return
+    }
+   else if(result=="result displayed"){
+    navigate('/displayresult')
+   }
+   })
   }
+
   return (
  
     <>

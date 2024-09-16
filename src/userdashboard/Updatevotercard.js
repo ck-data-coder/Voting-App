@@ -140,7 +140,7 @@ function Updatevotercard() {
     formData.append("picfile", votercardData.picfile);
     console.log([...formData.entries()]);
     const token=localStorage.getItem('token');
-     axios.put("http://localhost:8080/updatevotercard" ,formData ,{
+     axios.put("/api/updatevotercard" ,formData ,{
       headers: {
         'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
        
@@ -167,7 +167,7 @@ function Updatevotercard() {
     console.log("click")
     console.log(votercardData.epic_no)
     const token = localStorage.getItem('token');
-  await  axios.post("http://localhost:8080/verifyepic_no", {epic_no:votercardData.epic_no}, {
+  await  axios.post("/api/verifyepic_no", {epic_no:votercardData.epic_no}, {
         headers: {
             'Authorization': `Bearer ${token}`,
         }
@@ -478,7 +478,7 @@ function Updatevotercard() {
             />
 
             <label htmlFor="Add-proof">
-              Self Attested Copy of Address Proof:
+              Self Attested Copy of Aadhar card:
             </label>
             <input
              disabled={inputdisable}

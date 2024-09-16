@@ -3,12 +3,25 @@ import React, { useState,useEffect } from 'react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import axios from 'axios';
 const Currentelectionbarplot = () => {
-    const electionTime=new Date(+localStorage.getItem("timecalToDisplayElectionButton")).toISOString().slice(0, 10)
+  const token=localStorage.getItem("token")
+  async function gettimecalToDisplayElectionButton(){
+   await axios.get('/api/gettimecalToDisplayElectionButton').then((res)=>{
+    localStorage.setItem("timecalToDisplayElectionButton",res.data)
+   }).catch(()=>{})
+  }
+
+   const timecalToDisplayElectionButton=localStorage.getItem("timecalToDisplayElectionButton")
+    const electionTime=new Date(+timecalToDisplayElectionButton).toISOString().slice(0, 10)
    
     const [currentElecData,setCurrentElecData]=useState()
 
   async  function reqfunc(){
-    await  axios.get("http://localhost:8080/displayresult").then((res)=>{
+    await  axios.get("/api/displayresult", {
+      headers: {
+        'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
+        'Content-Type': 'application/json'
+      }
+    }).then((res)=>{
            res.data.map((e)=>{ 
                if(e.date==electionTime){
              
@@ -20,6 +33,7 @@ const Currentelectionbarplot = () => {
      }).catch((err)=>console.log(err))
     }
     useEffect(()=>{
+      gettimecalToDisplayElectionButton()
       reqfunc()
     },[])
 

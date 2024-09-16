@@ -27,7 +27,7 @@ const Downloadvotercard = () => {
         console.log(epic);
         const token = localStorage.getItem('token');
        
-        axios.post("http://localhost:8080/downloadvotercard", epic, {
+        axios.post("/api/downloadvotercard", epic, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
@@ -55,6 +55,10 @@ const Downloadvotercard = () => {
                 }
                 else if (err.response.status === 400) {
                     toast.error("login as a User");
+                    return;
+                }
+                else if (err.response.status === 401) {
+                    toast.error("please login");
                     return;
                 }
                 toast.error('Voter not found');

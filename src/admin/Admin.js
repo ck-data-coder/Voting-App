@@ -8,14 +8,14 @@ import Userheader from "../userdashboard/Userheader";
 import Footer from "../Landingpage/Footer";
 
 function Admin() {
-   const countdownDuration =12*60*60 * 1000; // 24 hours in milliseconds
+   const countdownDuration =12*60*60*1000; // 24 hours in milliseconds
    const [remainingTime, setRemainingTime] = useState(countdownDuration);
    const [electionButtonDisplay,setElectionButtonDisplay]=useState(false)
    const [hourdisplay,setHourDisplay]=useState(false)
   const navigate=useNavigate()
   const [adminOrNot,setAdminOrNot]=useState(null)
   const [displayResult,setDisplayResult]=useState(false)
-
+const [electionButtonDisplayTime,setelectionButtonDisplayTime]=useState(null)
 
    const formatTime = (ms) => {
       const hours = Math.floor(ms / (60 * 60 * 1000));
@@ -26,19 +26,22 @@ function Admin() {
     };
 
 
-   function startElectionClick(){
-      setHourDisplay(true)
+  async function startElectionClick(){
+    
       setElectionButtonDisplay(true)
       
     
          localStorage.setItem('election',"election started")
          // Check if there's already a saved target time in local storage
          let targetTime = localStorage.getItem('targetTime');
-     
+      
+       console.log(targetTime)
          // If there's no saved target time, set a new one
-         if (!targetTime) {
+         if (!targetTime || targetTime=='') {
            targetTime = new Date().getTime() + countdownDuration;
            localStorage.setItem('targetTime', targetTime);
+           await axios.post('/api/puttargettimeelectionandresult',{id :1,targettime:targetTime,election:"election started",result:"result pending"}).then(()=>{}).catch((err)=>{console.log(err)})
+           console.log(targetTime)
          }
      
          // Function to update the remaining time every second
@@ -52,6 +55,8 @@ function Admin() {
            // If the countdown is over, stop the interval and clear local storage
            if (timeLeft < 0) {
             localStorage.removeItem('targetTime');
+             axios.delete('/api/removetargettime',{id:1}).then(()=>{}).catch((err)=>{console.log(err)})
+             axios.post('/api/setelection',{election:"election ended"}).then(()=>{}).catch((err)=>{console.log(err)})
              clearInterval(interval);
              localStorage.setItem('election',"election ended")
           
@@ -60,16 +65,18 @@ function Admin() {
            }
          }, 1000);
      
-        
+         setHourDisplay(true)
          // Cleanup interval on component unmount
          return () => clearInterval(interval);
        }
 
-       function electionButtonClick(e){
+     async  function electionButtonClick(e){
          e.preventDefault()
+         setDisplayResult(true)
          localStorage.setItem("timecalToDisplayElectionButton", Date.now())
          startElectionClick()
-         axios.get("http://localhost:8080/votingstart").then(()=>{
+         await axios.post('/api/settimecalToDisplayElectionButton',{timecalToDisplayElectionButton:Date.now()}).then(()=>{}).catch((err)=>{console.log(err)})
+         axios.get("/api/votingstart").then(()=>{
 
           toast.success("message send to voters")
          })
@@ -77,10 +84,55 @@ function Admin() {
           toast.error(" error in message send to voters")
         })
        }
-       
+
+    async function gettime(){
+      console.log("repeated calls")
+     await  axios.get('/api/gettimecalToDisplayElectionButton')
+       .then((res)=>{
+      //   setelectionButtonDisplayTime(res.data); 
+        const addedtime= +res.data+(2*countdownDuration);
+        console.log(addedtime,Date.now())
+       // console.log(electionButtonDisplayTime)
+        if(Date.now()>=addedtime){
+           console.log(new Date().getTime())
+          
+           setElectionButtonDisplay(false)
+           return
+        }
+        else setElectionButtonDisplay(true)
+      
+    }).catch(()=>{})
+    }
+    
+        async function gettargettime() {
+          console.log("checking run or not")
+       await  axios.get("/api/gettargettime").then(async(res)=>{
+            try{
+      
+              localStorage.setItem('targetTime', res.data);
+               await  startElectionClick()
+                setDisplayResult(true)
+                localStorage.setItem("result","result pending")
+              
+              const remainingTime=localStorage.getItem("remaingtime")
+              console.log("remaining time")
+              if(remainingTime>0){
+                 setHourDisplay(true)
+              } 
+        
+           }catch{}
+          }).catch((err)=>{
+           setDisplayResult(false)
+            console.log(err)})
+
+        }
+      
+      
        useEffect(()=>{
+       
+
          const token=localStorage.getItem("token")
-          axios.get("http://localhost:8080/admin", {
+          axios.get("/api/admin", {
             headers: {
               'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
               'Content-Type': 'application/json'
@@ -102,34 +154,11 @@ function Admin() {
              
            } catch { }
           })
-          const targetTime=localStorage.getItem("targetTime")
-         try{
-          
-            if(targetTime){
-               startElectionClick()
-              setDisplayResult(true)
-              localStorage.setItem("result","result pending")
-            const remainingTime=localStorage.getItem("remaingtime")
-            console.log("remaining time")
-            if(remainingTime>0){
-               setHourDisplay(true)
-            } 
-         }
-         if(!targetTime)setDisplayResult(false)
-            const electionButtonDisplayTime= localStorage.getItem("timecalToDisplayElectionButton")
-         
-            const addedtime=+electionButtonDisplayTime+(2*countdownDuration);
-            console.log(addedtime,Date.now())
-           // console.log(electionButtonDisplayTime)
-            if(Date.now()>=addedtime){
-               console.log(new Date().getTime())
-              
-               setElectionButtonDisplay(false)
-               return
-            }
-            else setElectionButtonDisplay(true)
-         
-         }catch{}
+       //   let targetTime=localStorage.getItem("targetTime")
+            gettime()
+            gettargettime()
+           
+   
        },[])
       
     console.log(adminOrNot)
@@ -137,9 +166,10 @@ function Admin() {
         navigate("/votingdata")
        }
 
-       function displayResultButtonClick(){
+      async function displayResultButtonClick(){
        toast.success("result displayed")
        localStorage.setItem("result","result displayed")
+       await axios.post('/api/setresult',{result:"result displayed"})
   //  navigate('/displayresult')
        }
    return (

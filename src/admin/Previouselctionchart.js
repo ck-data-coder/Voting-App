@@ -4,17 +4,30 @@ import axios from 'axios';
 import { partynames } from '../user/User';
 
 const PreviousElectionChart = () => {
-  const electionTime = new Date(+localStorage.getItem("timecalToDisplayElectionButton")).toISOString().slice(0, 10);
+  const token=localStorage.getItem("token")
+  async function gettimecalToDisplayElectionButton(){
+    await axios.get('/api/gettimecalToDisplayElectionButton').then((res)=>{
+     localStorage.setItem("timecalToDisplayElectionButton",res.data)
+    }).catch(()=>{})
+   }
+   
+    const timecalToDisplayElectionButton=localStorage.getItem("timecalToDisplayElectionButton")
+     const electionTime=new Date(+timecalToDisplayElectionButton).toISOString().slice(0, 10)
   const [transformedData, setTransformedData] = useState([]);
   const [uniqueParties, setUniqueParties] = useState(new Set());
 
   const fetchPreviousElectionData = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/displayresult");
-      const previousElecData = response.data.filter(e => e.date !== electionTime);
-       if(previousElecData.length>5){
-        previousElecData=previousElecData.slice(0,5);
-       }
+      const response = await axios.get("/api/displayresult", {
+        headers: {
+          'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
+          'Content-Type': 'application/json'
+        }
+      });
+      let previousElecData = response.data.filter(e => e.date !== electionTime);
+     
+      previousElecData=previousElecData.length>5?previousElecData.slice(0,5):previousElecData
+      console.log(previousElecData)
       // Aggregate data per date
       const formattedData = previousElecData.map(item => {
         const partyData = { date: item.date };
@@ -43,6 +56,7 @@ const PreviousElectionChart = () => {
   };
 
   useEffect(() => {
+    gettimecalToDisplayElectionButton()
     fetchPreviousElectionData();
   }, []);
 

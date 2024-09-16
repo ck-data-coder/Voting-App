@@ -45,7 +45,7 @@ const ForgetPassword = () => {
         }
         setGenerateOtpDisable(true)
         setGenerateOtpSpinnerDisplay(true)
-        axios.post("http://localhost:8080/forgetpasswordotp",{...email,time:Date.now()}).then((res)=>{
+        axios.post("/api/forgetpasswordotp",{...email,time:Date.now()}).then((res)=>{
           try{
             localStorage.setItem("forgetpasswordemail",email.email)
             toast.success(res.data.message)
@@ -68,7 +68,7 @@ const ForgetPassword = () => {
      async  function verifyOtpClick(e){
           e.preventDefault()
           setResendOtpAndVerifySpinnerDisplay(true)
-          await axios.post("http://localhost:8080/forgetpasswordverifyotp",email).then((res)=>{
+          await axios.post("/api/forgetpasswordverifyotp",email).then((res)=>{
             try{
               toast.success(res.data.message)
               }catch{}
@@ -95,7 +95,7 @@ const ForgetPassword = () => {
         setResendOtpAndVerifySpinnerDisplay(true)
         const email=localStorage.getItem("forgetpasswordemail")
        
-        await axios.post("http://localhost:8080/forgetpasswordotp",{email:email,time:Date.now()}).then((res)=>{  
+        await axios.post("/api/forgetpasswordotp",{email:email,time:Date.now()}).then((res)=>{  
 
           console.log(res)
           try{
@@ -192,7 +192,7 @@ const ForgetPassword = () => {
        
 
 
-         await axios.patch("http://localhost:8080/updateforgetpassword",{email:email.email,password:checkPassword.password}).then((res)=>{
+         await axios.patch("/api/updateforgetpassword",{email:email.email,password:checkPassword.password}).then((res)=>{
           try{
             toast.success(res.data.message)
             navigate('/login')

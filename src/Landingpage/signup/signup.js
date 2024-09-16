@@ -95,7 +95,7 @@ if(signup=="generate otp"){
   setDisable(true)
   if(signup=="Register") setDisableinput(true)
   localStorage.setItem('signupdata',JSON.stringify(signupData))
- await axios.post("http://localhost:8080/signup",{signupData,signup:signup,time:Date.now()}).then((res)=>{
+ await axios.post("/api/signup",{signupData,signup:signup,time:Date.now()}).then((res)=>{
   try{
     setSpinnerDisplay(false)
     toast.success(res.data.message)
@@ -121,8 +121,8 @@ return;
  if(signup=="Register"){
   setSpinnerDisplay(true)
   if(otp.otpval.length==6){
-    axios.post("http://localhost:8080/signup",{signupData,otp}).then(()=>{
-      axios.post( "http://localhost:8080/signup",{signupData,data:"database"})
+    axios.post("/api/signup",{signupData,otp}).then(()=>{
+      axios.post( "/api/signup",{signupData,data:"database"})
       .then(res=>{
        console.log(res.data);
     
@@ -163,7 +163,7 @@ const resendOtpFunc=useCallback(async(e)=>{
   
   const signupData=item;
   console.log(signupData)
-  await axios.post("http://localhost:8080/signup",{signupData,signup:signup}).then((res)=>{ 
+  await axios.post("/api/signup",{signupData,signup:signup}).then((res)=>{ 
     setSpinnerDisplay(false)
     setDisableinput(true)
     console.log(res)

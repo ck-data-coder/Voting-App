@@ -139,7 +139,7 @@ function Votercard() {
     formData.append("picfile", votercardData.picfile);
     console.log([...formData.entries()]);
     const token=localStorage.getItem('token');
-     axios.post("http://localhost:8080/votercard" ,formData ,{
+     axios.post("/api/votercard" ,formData ,{
       headers: {
         'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
        
@@ -416,7 +416,7 @@ function Votercard() {
             />
 
             <label htmlFor="Add-proof">
-              Self Attested Copy of Address Proof:
+              Self Attested Copy of Aadhar card:
             </label>
             <input
             required

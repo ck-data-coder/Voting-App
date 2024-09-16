@@ -7,15 +7,27 @@ import { datacontext, setdatacontext } from "../App";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Footer from '../Landingpage/Footer';
+
+
 const Voterdata = () => {
     const data = useContext(datacontext);
     const setdata = useContext(setdatacontext);
     const navigate=useNavigate()
-    const electionTime = new Date(+localStorage.getItem("timecalToDisplayElectionButton")).toISOString().slice(0, 10);
+
+
+    async function gettimecalToDisplayElectionButton(){
+    await axios.get('/api/gettimecalToDisplayElectionButton').then((res)=>{
+     localStorage.setItem("timecalToDisplayElectionButton",res.data)
+    }).catch(()=>{})
+   }
+   
+    const timecalToDisplayElectionButton=localStorage.getItem("timecalToDisplayElectionButton")
+     const electionTime=new Date(+timecalToDisplayElectionButton).toISOString().slice(0, 10)
+
     const func = async () => {
      
         const token = localStorage.getItem('token');
-        const value = await axios.get("http://localhost:8080/voterdata", {
+        const value = await axios.get("/api/voterdata", {
            headers: {
              'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
              'Content-Type': 'application/json'
@@ -31,6 +43,7 @@ const Voterdata = () => {
      };
   
      useEffect(() => {
+      gettimecalToDisplayElectionButton()
         func();
      }, []);
 
