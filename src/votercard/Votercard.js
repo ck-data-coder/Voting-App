@@ -137,6 +137,7 @@ function Votercard() {
   
     formData.append("address_proof", votercardData.address_proof);
     formData.append("picfile", votercardData.picfile);
+    formData.append("time",Date.now())
     console.log([...formData.entries()]);
     const token=localStorage.getItem('token');
      axios.post("/api/votercard" ,formData ,{
@@ -153,9 +154,12 @@ function Votercard() {
         
     }).catch((err)=>{
       try{
+        
+     
         setSubmitButtonDisable(false)
         toast.error(err.response.data.message)
         setSpinnerDisplay(false)
+      
       }
       catch{ }
     });
@@ -331,9 +335,12 @@ function Votercard() {
             <input
             required
               onChange={handlechange}
-              type="number"
+              type="text"
+              inputmode="numeric"
+              pattern="[0-9]*"
               value={votercardData.aadhar}
               name="aadhar"
+            
             />
           </div>
           <hr />
@@ -416,7 +423,7 @@ function Votercard() {
             />
 
             <label htmlFor="Add-proof">
-              Self Attested Copy of Aadhar card:
+              Self Attested photo Copy of Aadhar card:
             </label>
             <input
             required

@@ -138,6 +138,7 @@ function Updatevotercard() {
   
     formData.append("address_proof", votercardData.address_proof);
     formData.append("picfile", votercardData.picfile);
+    formData.append("time",Date.now())
     console.log([...formData.entries()]);
     const token=localStorage.getItem('token');
      axios.put("/api/updatevotercard" ,formData ,{
@@ -157,6 +158,7 @@ function Updatevotercard() {
         toast.error(err.response.data.message)
         setSubmitButtonDisable(false)
         setSpinnerDisplay(false)
+      
       }
       catch{ }
     });
@@ -478,7 +480,7 @@ function Updatevotercard() {
             />
 
             <label htmlFor="Add-proof">
-              Self Attested Copy of Aadhar card:
+              Self Attested photo Copy of Aadhar card:
             </label>
             <input
              disabled={inputdisable}
