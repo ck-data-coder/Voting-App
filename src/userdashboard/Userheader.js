@@ -14,26 +14,34 @@ const Userheader = () => {
         const token=localStorage.getItem('token');
         const navigate = useNavigate();
       
-      
-        console.log(usercon)
-        axios.post('/api/userheader', usercon,{
+    async  function getdata(){
+      await  axios.post('/api/userheader', usercon,{
             headers: {
-              'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
+              'Authorization': `Bearer ${token}`, 
             }
           }).then((res) => {
             console.log(res)
             setUsername(res.data.data.username);
             setemail(res.data.data.email)
-        }).catch(()=>{setUsername('user'); setemail('user')})
+        }).catch((err)=>{console.log(err)})
+      }
+
       
-   
+        useEffect(()=>{
+            console.log("reruns or not")
+          getdata()
+        
+        },[])
+     
     
+  
 
     const handleProfileClick = () => {
         setProfileDisplay(!profileDisplay);
     };
 
    function logoutClick(){
+ 
     localStorage.removeItem("token");
     navigate("/")
     

@@ -43,6 +43,7 @@ const Voterdata = () => {
      };
   
      useEffect(() => {
+      window.scrollTo(0, 0); 
       gettimecalToDisplayElectionButton()
         func();
      }, []);

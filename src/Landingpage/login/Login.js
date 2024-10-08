@@ -54,7 +54,7 @@ const Login = () => {
         navigate(endpoint);
       })
       .catch((err) => {
-        toast.error(err.response?.data?.message || "Login failed", {
+        toast.error(err.response.data.message || "Login failed", {
           position: 'top-center'
         });
       });

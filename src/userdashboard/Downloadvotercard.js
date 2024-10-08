@@ -66,6 +66,10 @@ const Downloadvotercard = () => {
         });
     }
 
+    useEffect(()=>{
+        window.scrollTo(0, 0); 
+    },[])
+    
     useEffect(() => {
         if (epic.epic_no.length === 10) {
             setVerifyDisable(false);

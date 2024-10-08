@@ -52,11 +52,33 @@ const User = () => {
   })
 
   }
+ 
+  async function gettargettime(){
+    await axios.get('/api/gettargettime').then((res)=>{
+       
+    }).catch(()=>{
+      navigate('/')
+      return;
+    })
+   }
+
+   async function gettimecalToDisplayElectionButton(){
+    await axios.get('/api/gettimecalToDisplayElectionButton').then((res)=>{
+     localStorage.setItem("timecalToDisplayElectionButton",res.data)
+    }).catch(()=>{})
+   }
+
+  useEffect(()=>{
+    window.scrollTo(0, 0); 
+    gettimecalToDisplayElectionButton()
+ gettargettime()
+  },[])
 
   useEffect(() => {
+
     console.log("epic len: " + epic.epic_no.length);
     if (epic.epic_no.length === 10) {
-      console.log("hello");
+    
       setVerifyDisable(false);
     } else {
       setVerifyDisable(true);

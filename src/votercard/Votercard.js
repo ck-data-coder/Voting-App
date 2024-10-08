@@ -52,7 +52,10 @@ function Votercard() {
    
    
   }
-
+  useEffect(()=>{
+    window.scrollTo(0, 0); 
+  },[])
+  
   useEffect(() => {
     Object.keys(indiaDistricts).map((e) => {
       const state = votercardData.state;

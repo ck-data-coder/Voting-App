@@ -31,6 +31,7 @@ const Displayresult = () => {
   const [data, setdata] = useState();
 
   useEffect(() => {
+    window.scrollTo(0, 0); 
     getresult();
     gettimecalToDisplayElectionButton();
     axios.get("/api/displayresult", {

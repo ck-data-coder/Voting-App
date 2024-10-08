@@ -38,12 +38,16 @@ await axios.get('/api/gettargettime').then((res)=>{
     }
   }, 1000);
   setDisplayTime(true)
- }).catch((err)=>{console.log(err); setDisplayTime(false)})
+ }).catch((err)=>{console.log(err);
+  localStorage.removeItem("targetTime")
+   setDisplayTime(false)})
 }
  
 
+
 useEffect(()=>{
-   
+  window.scrollTo(0, 0); 
+
   startelectionornot()
       
   },[])
@@ -90,7 +94,7 @@ useEffect(()=>{
       const electionStartTime= +electionButtonDisplayTime +(2*12*60*60*1000);
   
    if(time>electionStartTime){
-    toast.error("election not started yet")
+    toast.error("election is not started yet")
     return
    }
    else if(time<electionStartTime){

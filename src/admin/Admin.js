@@ -122,6 +122,7 @@ const [electionButtonDisplayTime,setelectionButtonDisplayTime]=useState(null)
         
            }catch{}
           }).catch((err)=>{
+            localStorage.removeItem("targetTime")
            setDisplayResult(false)
             console.log(err)})
 
@@ -130,7 +131,7 @@ const [electionButtonDisplayTime,setelectionButtonDisplayTime]=useState(null)
       
        useEffect(()=>{
        
-
+        window.scrollTo(0, 0); 
          const token=localStorage.getItem("token")
           axios.get("/api/admin", {
             headers: {
