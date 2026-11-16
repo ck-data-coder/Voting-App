@@ -8,11 +8,11 @@ import './user.css'
 import Footer from "../Landingpage/Footer";
 
 const parties = [
-  { logo: "./logo-photos/logo-bjp.png", name: "Bhartiy Janta Party", memberName: "Narendra Modi" },
-  { logo: "./logo-photos/CPI-logo.png", name: "Communist Party of India", memberName: "Avishkar Kale" },
-  { logo: "./logo-photos/Indian_National_Congress-logo.webp", name: "Indian National Congress", memberName: "Rahul Gandhi" },
-  { logo: "./logo-photos/NPP_Flag-logo.jpg", name: "National People's Party", memberName: "Chaitanya Kaklij" },
-  { logo: "./logo-photos/AAP-logo.png", name: "Aam Adami Party", memberName: "Avishkar Kale" },
+  { logo: "./logo-photos/logo-bjp.png", leader:"./party-leaders/narendra modi.jpeg", name: "Bhartiy Janta Party (BJP)", memberName: "Narendra Modi" },
+  { logo: "./logo-photos/CPI-logo.png", leader:"./party-leaders/communist leader.jpeg",  name: "Communist Party of India", memberName: " M.N. Roy" },
+  { logo: "./logo-photos/Indian_National_Congress-logo.webp",  leader:"./party-leaders/congress leader.jpeg",  name: "Indian National Congress", memberName: "Mallikarjun Kharge" },
+  { logo: "./logo-photos/NPP_Flag-logo.jpg",  leader:"./party-leaders/npparty.jpeg",  name: "National People's Party", memberName: "Conrad Sangma" },
+  { logo: "./logo-photos/AAP-logo.png",  leader:"./party-leaders/aaparty.jpeg",  name: "Aam Adami Party (AAP)", memberName: "Arvind Kejriwal" },
 
   // More parties can be added here dynamically by the admin
 ];
@@ -144,8 +144,13 @@ axios.post("/api/uservote",data,{
               alt={`${party.name} logo`}
               className="party-logo"
             />
-            <h3 className="party-name">{party.name}</h3>
+            <img 
+             src={require(`${party.leader}`)}
+             alt={`${party.name} logo`}
+             className="party-leader"
+            />
             <h3 className="party-name">{party.memberName}</h3>
+            <h3 className="party-name">{party.name}</h3>
             <button className="vote-button" onClick={()=>voteClick(party.name)}>Vote</button>
           </div>
         ))}
